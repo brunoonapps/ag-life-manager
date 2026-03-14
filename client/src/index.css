@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #ccff00;
+  --color-bg-deep: #0a0a0a;
+  --color-border-dim: #262626;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --radius-none: 0px;
+}
+
+@layer base {
+  body { @apply bg-bg-deep text-white font-sans antialiased; margin: 0; }
+  h1, h2, h3, h4, h5, h6 { @apply font-mono uppercase tracking-tighter; }
+}
+
+@layer components {
+  .card-technical { @apply border border-border-dim bg-black/50 p-6 transition-all duration-300; border-radius: 0px; }
+  .card-technical:hover { @apply border-brand/50 shadow-[4px_4px_0px_#ccff00]; }
+  .btn-technical { @apply bg-brand text-black px-4 py-2 font-mono font-bold uppercase tracking-tight transition-all duration-200; border-radius: 0px; }
+  .btn-technical:hover { @apply bg-white shadow-[2px_2px_0px_#ccff00]; transform: translate(-1px, -1px); }
+  .stat-value { @apply text-5xl font-mono font-black tracking-tighter text-brand; }
+}
