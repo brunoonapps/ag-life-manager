@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { LayoutDashboard, CheckCircle2, AlertTriangle, ListTodo, Plus, Languages, Trash2 } from 'lucide-react';
+import { LayoutDashboard, CheckCircle2, AlertTriangle, ListTodo, Plus, Languages, Trash2, LogOut } from 'lucide-react';
 import { useTaskStore } from '../store/useTaskStore';
+import { signOut } from '../lib/auth-client';
 import { StatCard } from '../components/StatCard';
 import { TaskModal } from '../components/TaskModal';
 import { useTranslation } from 'react-i18next';
@@ -59,6 +60,17 @@ const Dashboard: React.FC = () => {
           >
             <Plus size={18} />
             {t('dashboard.new_task')}
+          </button>
+          <button 
+            onClick={async () => {
+              await signOut();
+              window.location.reload();
+            }}
+            className="flex items-center gap-2 border border-red-500/20 px-3 py-1.5 font-mono text-[10px] text-red-500 hover:bg-red-500 hover:text-white transition-all group"
+            title="Sair do Sistema"
+          >
+            <LogOut size={14} className="group-hover:-translate-x-1 transition-transform" />
+            {t('dashboard.logout')}
           </button>
         </div>
       </header>
