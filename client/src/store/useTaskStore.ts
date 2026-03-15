@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
+const api = axios.create({
+  baseURL: 'http://localhost:3001/api',
+  withCredentials: true
+});
+
 interface Task {
   id: string;
   title: string;
@@ -31,7 +36,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   fetchTasks: async () => {
     set({ loading: true });
     try {
-      const response = await axios.get('http://localhost:3001/api/tasks');
+      const response = await api.get('/tasks');
       set({ tasks: response.data.data });
     } finally {
       set({ loading: false });
@@ -39,7 +44,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
   fetchCategories: async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/categories');
+      const response = await api.get('/categories');
       set({ categories: response.data.data });
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -47,7 +52,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
   fetchStats: async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/tasks/stats');
+      const response = await api.get('/tasks/stats');
       set({ stats: response.data.data });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -55,7 +60,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
   updateTask: async (id, taskData) => {
     try {
-      await axios.patch(`http://localhost:3001/api/tasks/${id}`, { ...taskData, userId: 'test-user-id' });
+      await api.patch(`/tasks/${id}`, taskData);
       await Promise.all([get().fetchTasks(), get().fetchStats()]);
     } catch (error) {
       console.error('Error updating task:', error);
@@ -64,7 +69,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
   toggleTaskStatus: async (id) => {
     try {
-      await axios.patch(`http://localhost:3001/api/tasks/${id}/toggle`);
+      await api.patch(`/tasks/${id}/toggle`);
       await Promise.all([get().fetchTasks(), get().fetchStats()]);
     } catch (error) {
       console.error('Error toggling task status:', error);
@@ -73,7 +78,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
   createTask: async (taskData) => {
     try {
-      await axios.post('http://localhost:3001/api/tasks', taskData);
+      await api.post('/tasks', taskData);
       await Promise.all([get().fetchTasks(), get().fetchStats()]);
     } catch (error) {
       console.error('Error creating task:', error);
@@ -82,7 +87,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
   deleteTask: async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/tasks/${id}`);
+      await api.delete(`/tasks/${id}`);
       await Promise.all([get().fetchTasks(), get().fetchStats()]);
     } catch (error: any) {
       console.error('Error deleting task:', error);

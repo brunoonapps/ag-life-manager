@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@better-auth/prisma-adapter": "^1.5.5",
     "@prisma/client": "^6.19.2",
+    "@types/cookie-parser": "^1.4.10",
     "accepts": "^2.0.0",
     "acorn": "^8.16.0",
     "acorn-walk": "^8.3.5",
@@ -14,6 +16,7 @@
     "axios": "^1.13.6",
     "balanced-match": "^1.0.2",
     "base64url": "^3.0.1",
+    "better-auth": "^1.5.5",
     "binary-extensions": "^2.3.0",
     "body-parser": "^2.2.2",
     "brace-expansion": "^1.1.12",
@@ -32,6 +35,7 @@
     "content-disposition": "^1.0.1",
     "content-type": "^1.0.5",
     "cookie": "^0.7.2",
+    "cookie-parser": "^1.4.7",
     "cookie-signature": "^1.2.2",
     "cors": "^2.8.6",
     "create-require": "^1.1.1",
@@ -170,6 +174,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "server": "npm run dev",
     "build": "tsc",
     "start": "node dist/server.js",
     "prisma:push": "prisma db push",

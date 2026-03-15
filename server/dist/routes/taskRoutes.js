@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { getTasks, createTask, getStats, deleteTask, updateTask, toggleTaskStatus } from '../controllers/taskController.js';
+const router = Router();
+router.get('/', getTasks);
+router.post('/', createTask);
+router.get('/stats', getStats);
+router.delete('/:id', deleteTask);
+router.patch('/:id/toggle', toggleTaskStatus);
+router.patch('/:id', updateTask);
+export default router;
